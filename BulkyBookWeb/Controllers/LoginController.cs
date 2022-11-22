@@ -1,5 +1,7 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -28,6 +30,10 @@ namespace BulkyBookWeb.Controllers
                     bool isValid = (data.Email == obj.Email && data.Password == obj.Password);
                     if(isValid)
                     {
+                        var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, obj.Email) }, CookieAuthenticationDefaults.AuthenticationScheme );
+                        var principal = new ClaimsPrincipal(identity);
+                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        /*HttpContext.Session.SetString("Email", obj.Email);*/
                         return RedirectToAction("Index","Home");
                     }
                     else
@@ -45,6 +51,12 @@ namespace BulkyBookWeb.Controllers
             }
             TempData["error"] = "Something went wrong.";
             return View();
+        }
+
+        public IActionResult Signout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Register()

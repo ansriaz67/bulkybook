@@ -1,8 +1,15 @@
 ﻿@model IEnumerable<Category>
+
 @{
     ViewData["Title"] = "Index";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -38,4 +45,8 @@
         }
     </tbody>
 </table>
+
+<partial name="_Pagination" />
+
+
 

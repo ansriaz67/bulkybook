@@ -1,9 +1,11 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -13,10 +15,20 @@ namespace BulkyBookWeb.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pg=1)
         {
             IEnumerable<Category> objcategoriesList = _db.Categories;
-            return View(objcategoriesList);
+            const int pageSize = 5;
+            if (pg < 1)
+            {
+                pg =1;
+            }
+            int recsCount = objcategoriesList.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg-1) * pageSize;
+            var data = objcategoriesList.Skip(recSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+            return View(data);
         }
 
         //GET
