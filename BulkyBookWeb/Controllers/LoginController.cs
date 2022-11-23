@@ -31,6 +31,7 @@ namespace BulkyBookWeb.Controllers
                 var data = _db.RegisterModel.Where(e=>e.Email== obj.Email).SingleOrDefault();
                 if(data != null)
                 {
+                   
                     bool isValid = (data.Email == obj.Email && data.Password == obj.Password);
                     if(isValid)
                     {
@@ -72,8 +73,15 @@ namespace BulkyBookWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterModel obj)
         {
+          
             if (ModelState.IsValid)
             {
+                var isEmailAlreadyExists = _db.RegisterModel.Any(x => x.Email == obj.Email);
+                if (isEmailAlreadyExists)
+                {
+                    ModelState.AddModelError("Email", "User with this email already exists");
+                    return View(obj);
+                }
                 _db.RegisterModel.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "User Registered Successfully!";
