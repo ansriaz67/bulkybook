@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    int intSno = 0;
     Pager pager = new Pager();
     int pageNo = 0;
     if(ViewBag.Pager != null)
@@ -21,10 +22,20 @@
     </div>
 </div>
 
+<div class="col-4 p-0 justify-content-end">
+    <form asp-controller="Category" asp-action="Index">
+        <span class="btn-group m-2">
+            <input class="form-control" type="text" name="SearchText" placeholder="Search Text" />
+            <input class="p-1 mx-1 btn btn-sm btn-info" type="submit" value="Submit" />
+        </span>
+    </form>
+</div>
+
 <table class="table table-bordered table-striped" style="width:100%;">
     <thead>
         <tr>
-            <th>Category Name</th>
+            <th>S.No</th>
+            <th><a class="text-decoration-none" asp-controller="Category" asp-action="Index" asp-route-SortOrder="@ViewData["NameSort"]">Category Name</a></th>
             <th>Display Order</th>
             <th></th>
         </tr>
@@ -32,7 +43,9 @@
     <tbody>
         @foreach(var category in Model)
         {
+            intSno += 1 ;
             <tr>
+                <td>@intSno</td>
                 <td style="width:50%">@category.Name</td>
                 <td style="width: 30%">@category.DisplayOrder</td>
                 <td>

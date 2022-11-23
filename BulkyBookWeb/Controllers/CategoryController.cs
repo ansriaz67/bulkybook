@@ -2,6 +2,7 @@
 using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -15,17 +16,35 @@ namespace BulkyBookWeb.Controllers
             _db = db;
         }
 
-        public IActionResult Index(int pg=1)
+
+        public IActionResult Index(int pg = 1, string SearchText = "", string SortOrder = "")
         {
-            IEnumerable<Category> objcategoriesList = _db.Categories;
+            ViewData["NameSort"] = String.IsNullOrEmpty(SortOrder) ? "name_desc" : "";
+            var objcategoriesList = from c in _db.Categories
+                       select c;
+            switch (SortOrder)
+            {
+                case "name_desc":
+                    objcategoriesList = objcategoriesList.OrderByDescending(a => a.Name);
+                    break;
+                default:
+                    objcategoriesList = objcategoriesList.OrderBy(a => a.Name);
+                    break;
+            }
+
+            if (SearchText != null && SearchText != "")
+            {
+                objcategoriesList = objcategoriesList.Where(s => s.Name.Contains(SearchText));
+            }
+            
             const int pageSize = 5;
             if (pg < 1)
             {
-                pg =1;
+                pg = 1;
             }
             int recsCount = objcategoriesList.Count();
             var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg-1) * pageSize;
+            int recSkip = (pg - 1) * pageSize;
             var data = objcategoriesList.Skip(recSkip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;
             return View(data);
