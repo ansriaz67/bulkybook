@@ -66,10 +66,10 @@ namespace BulkyBookWeb.Controllers
                 ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             }
             if (ModelState.IsValid) { 
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Category Created Successfully!";
-            return RedirectToAction("Index");
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully!";
+                return RedirectToAction("Index");
             }
             return View(obj);
         }

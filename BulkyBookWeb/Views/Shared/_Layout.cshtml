@@ -109,7 +109,7 @@
                 </div>
             </div>
     }
-    @if(!(User.Identity.IsAuthenticated))
+    else
     {
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
@@ -148,13 +148,13 @@
                 </div>
             </div>
         </nav>
-            <div class="container">
-                <main role="main" class="pb-3">
-                    <partial name="_Notification" />
-                    @RenderBody()
-                </main>
-            </div>
-                }
+        <div class="container">
+             <main role="main" class="pb-3">
+                 <partial name="_Notification" />
+                 @RenderBody()
+            </main>
+         </div>
+     }
 
                
 
