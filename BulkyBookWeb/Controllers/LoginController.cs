@@ -38,8 +38,9 @@ namespace BulkyBookWeb.Controllers
                         var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, obj.Email) }, CookieAuthenticationDefaults.AuthenticationScheme );
                         var principal = new ClaimsPrincipal(identity);
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                        HttpContext.Session.SetString("Email", obj.Email);
+                        /*HttpContext.Session.SetString("Email", obj.Email);
                         HttpContext.Session.SetString("Password", obj.Password);
+                        HttpContext.Session.SetString("Name", data.Name);*/
                         return RedirectToAction("Index","Home");
                     }
                     else

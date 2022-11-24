@@ -69,7 +69,7 @@ namespace BulkyBookWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(RegisterModel obj)
+        public IActionResult EditUser(RegisterModel obj)
         {
             if (obj.Password != obj.ConfirmPassword.ToString())
             {

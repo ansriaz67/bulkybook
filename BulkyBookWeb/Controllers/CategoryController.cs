@@ -92,7 +92,7 @@ namespace BulkyBookWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
+        public IActionResult EditPost(Category obj)
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
