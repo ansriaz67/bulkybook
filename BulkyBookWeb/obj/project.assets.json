@@ -10575,11 +10575,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Training\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "projectUniqueName": "D:\\Training\\Projects\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
       "projectName": "BulkyBookWeb",
-      "projectPath": "D:\\Training\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "projectPath": "D:\\Training\\Projects\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
       "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
-      "outputPath": "D:\\Training\\BulkyBook\\BulkyBookWeb\\obj\\",
+      "outputPath": "D:\\Training\\Projects\\BulkyBook\\BulkyBookWeb\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
